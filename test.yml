@@ -1,0 +1,82 @@
+consumes:
+- application/json
+produces:
+- application/json
+schemes:
+- http
+swagger: "2.0"
+info:
+  title: slk
+  version: 0.0.1
+host: test.shanglikang.com
+paths:
+  /api/v5/file/download:
+    get:
+      description: 文件上传测试
+      tags:
+      - open_platform
+      summary: 获取文件下载信息
+      operationId: get_file_download_info
+      parameters:
+      - name: args_get_file_download_info
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/args_get_file_download_info'
+      responses:
+        "200":
+          description: 返回应用信息
+          schema:
+            $ref: '#/definitions/resp_get_file_download_info'
+        default:
+          description: generic error response
+          schema:
+            $ref: '#/definitions/error'
+
+definitions:
+  args_get_file	download_info:
+      type: object
+      required:
+      - fileId
+      - fileName
+      properties:
+	fileId:
+	  description: 文件id
+	  type: integer
+	  x-order: 0
+	  example: 10086
+	fileName:
+	  description: 文件名
+	  type: string
+	  x-order: 1
+	  example: 下载文件.txt
+  resp_get_file_download_info:
+      type: object
+      required:
+      - url
+      - expire
+      properties:
+	url:
+	  description: 文件id
+	  type: string
+	  x-order: 0
+	  example: http://download.test.com/hash
+	expire:
+	  description: 过期时间
+	  type: integer
+	  x-order: 1
+	  example: 100
+  error:
+    type: object
+    properties:
+      msg:
+        description: 错误信息
+        type: string
+        x-order: 1
+        example: 没有权限
+      result:
+        description: 错误信息
+        type: string
+        x-order: 0
+        example: PermissionDenied
+
